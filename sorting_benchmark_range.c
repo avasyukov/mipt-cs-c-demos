@@ -16,17 +16,6 @@ void init_array(long int* array, long int number_of_elements)
 		array[i] = rand();
 }
 
-// Looks for maximum value in a given array - O(N)
-int find_max_using_scan(long int* array, long int number_of_elements)
-{
-	long int i;
-	long int res = array[0];
-	for( i = 0; i < number_of_elements; i++ )
-		if( array[i] > res )
-			res = array[i];
-	return res;
-}
-
 // Sorts array using find-and-insert method - O(N^2)
 void insert_sort(long int* src, long int* dst, long int number_of_elements)
 {
@@ -56,7 +45,8 @@ void bubble_sort(long int* src, long int* dst, long int number_of_elements)
 	// Implement me
 }
 
-void run_test(long int number_of_elements)
+// Runs test, returns time in ms
+long int run_test(long int number_of_elements)
 {
 	// Start and stop time of different stages
 	struct timespec start, stop;
@@ -80,19 +70,22 @@ void run_test(long int number_of_elements)
 	clock_gettime(CLOCK_REALTIME, &start);
 	insert_sort(a, b, number_of_elements);
 	clock_gettime(CLOCK_REALTIME, &stop);
-	printf("%d\t\t|\t%d msec\n", number_of_elements, get_time_diff(start, stop) );
 
 	// Free memmory and exit
 	free(a);
 	free(b);
+	return get_time_diff(start, stop);
 }
 
 // Main function
 int main(int argc, char** argv)
 {
-	// Number of elements
+	// Max number of elements
 	long int number_of_elements;
+	// Current size
 	long int current_size;
+	// Time
+	long int time_ms;
 
 	// number_of_elements parameter is mandatory
 	if( argc != 2 )
@@ -110,7 +103,8 @@ int main(int argc, char** argv)
 	current_size = 1000;
 	while(current_size <= number_of_elements)
 	{
-		run_test(current_size);
+		time_ms = run_test(current_size);
+		printf("%d\t\t|\t%d msec\n", current_size, time_ms);
 		current_size *= 2;
 	}
 
