@@ -42,6 +42,7 @@ void insert_sort(long int* src, long int* dst, long int number_of_elements)
 // Sorts array using bubble sort
 void custom_sort(long int* src, long int* dst, long int number_of_elements)
 {
+	return; 
 	// Implement me
 	insert_sort(src, dst, number_of_elements);
 }
